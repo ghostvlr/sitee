@@ -63,7 +63,7 @@
         if (sessionStorage.getItem('sender')) {
             sender = sessionStorage.getItem('sender');
         } else {
-            sender = prompt('LÜTFEN İSMİNİZİ GİRİNİZ');
+            sender = prompt('Lütfen İsminizi Giriniz');
             sessionStorage.setItem('sender', sender);
         }
         /* while döngüsü ile oturum bug'a giriyor 
@@ -75,20 +75,12 @@
 
         //sender null veya boş ise alert verir texbox'ı disabled yapar ve sayfayı kapatır.
         if (sender == null || sender == '') {
-            alert("Kullanıcı adı girmediğinizden dolayı oturum sonlandırıldı.");
+            alert("Kullanıcı Adı Girmediğinizden Dolayı Oturumunuz Sonlandırıldı.");
             msgTxt.disabled = true;
             close();
         }
 
-        //text 60 kelime ise mesajı otomatik gönderir
-        // var textbox = document.getElementById("msgTxt");
-
-        // textbox.addEventListener("input", function () {
-        //     if (textbox.value.length > 90) {
-        //         textbox.value = textbox.value.substring(0, 90);
-        //     }
-        // });
-
+    
 
 
 
@@ -110,8 +102,6 @@
             else msgBtn.disabled = true;
 
         });
-
-
 
 
 
@@ -150,6 +140,8 @@
             const preloader = document.querySelector(".preloader");
             preloader.style.display = "none";
         });
+
+       
     </script>
 </body>
 
