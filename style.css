@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url(images/bg.jpg); 
+    background-image: url(images/bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -9,13 +9,9 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
-  .container {
-    /* background-image: url(images/bg.jpg);
-    background-repeat: no-repeat;
-    width: 50%;
-    height: 100vh; */
-    background-image: none;
-    background-color: white;
+  body {
+
+    background-image: url(chat.jpg);
   }
 }
 
@@ -40,7 +36,7 @@ html {
     bottom: 0;
     width: 100%;
     height: 50px;
-    background: #AAA;
+    background: transparent;
 }
 
 
@@ -54,15 +50,30 @@ html {
     box-sizing: border-box;
     border: 1px solid;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: none;
+    border-radius: 10px;
+   
+    
+}
+
+i{
+  color:white;
 }
 
 #msgBtn {
     position: absolute;
-    right: 0;
+    right: -2px;
     top: 0;
     width: 100px;
     height: 100%;
     color:red;
+    border-radius: 10px;
+    border:none;
+    background-color: transparent;
+}
+
+#msgBtn:hover{
+  background-color: #040406;
 }
 
 #dltMsg{
@@ -83,21 +94,58 @@ html {
     width: 100%;
     margin-top: 10px;
     display: flex;
+    word-wrap: break-word;
 }
 
 #inner {
     padding: 10px;
     box-sizing: border-box;
     border-radius: 10px;
+    word-wrap: break-word;
 }
 
 .me {
     background: #009E60;
     color: #fff;
+    word-wrap: break-word;
 }
 
 .notMe {
     background: #252525;
     color: #fff;
+    word-wrap: break-word;
 }
 
+/* preloader */
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+}
+
+.loading-icon {
+  border: 4px solid #333;
+  border-top: 4px solid #f00;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: loading-icon 1s ease-in-out infinite;
+}
+
+@keyframes loading-icon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Preloader Bitiş */

@@ -7,20 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FİREBASE SOHBET UYGULAMASI</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 <html>
 
 <body>
+
+
+
     <div id="messages"></div>
 
     <div id="sendMsg">
         <input type="text" id="msgTxt" placeholder="Mesajınızı Giriniz..." aria-required="true">
-        <input type="submit" id="msgBtn" disabled value="Gönder" onclick="module.sendMsg()">
+        <input type="text">
+        <button id="msgBtn" disabled onclick="module.sendMsg()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
     </div>
-    <div class="container">
 
+    <div class="container">
+        
     </div>
+
+    <div class="preloader">
+        <div class="loading-icon"></div>
+    </div>
+
+
 
     <!-- JS -->
     <script>
@@ -52,10 +66,30 @@
             sender = prompt('LÜTFEN İSMİNİZİ GİRİNİZ');
             sessionStorage.setItem('sender', sender);
         }
-        while (sender == null || sender == "") {
-            alert("Kullanıcı Adı Girmediğinizden Dolayı Oturumunuz Sonlandırıldı.");
+        /* while döngüsü ile oturum bug'a giriyor 
+         while (sender == null || sender == "") {
 
+          alert("Kullanıcı Adı Girmediğinizden Dolayı Oturumunuz Sonlandırıldı.");
+
+         }*/
+
+        //sender null veya boş ise alert verir texbox'ı disabled yapar ve sayfayı kapatır.
+        if (sender == null || sender == '') {
+            alert("Kullanıcı adı girmediğinizden dolayı oturum sonlandırıldı.");
+            msgTxt.disabled = true;
+            close();
         }
+
+        //text 60 kelime ise mesajı otomatik gönderir
+        // var textbox = document.getElementById("msgTxt");
+
+        // textbox.addEventListener("input", function () {
+        //     if (textbox.value.length > 90) {
+        //         textbox.value = textbox.value.substring(0, 90);
+        //     }
+        // });
+
+
 
 
         // Mesaj gönderme
@@ -84,7 +118,7 @@
 
         onChildAdded(ref(db, "messages"), (data) => {
             if (data.val().sender == sender) {
-                messages.innerHTML += "<div style=justify-content:end class=outer id=" + data.key + "><div id=inner class=me>Ben : " + data.val().msg + "<button id=dltMsg onclick=module.dltMsg(" + data.key + ")>Sil</button></div></div>";
+                messages.innerHTML += "<div style=justify-content:end class=outer id=" + data.key + "><div id=inner class=me>Ben : " + data.val().msg + "<button id=dltMsg  onclick=module.dltMsg(" + data.key + ")>Sil </button></div></div>";
             } else {
                 messages.innerHTML += "<div class=outer id=" + data.key + "><div id=inner class=notMe>" + data.val().sender + " : " + data.val().msg + "</div></div>";
             }
@@ -112,8 +146,10 @@
             }
         });
 
-
-
+        window.addEventListener("load", function () {
+            const preloader = document.querySelector(".preloader");
+            preloader.style.display = "none";
+        });
     </script>
 </body>
 
