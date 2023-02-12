@@ -8,9 +8,8 @@
     <title>Ghost Chat</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="/images/icon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 </head>
 <html>
@@ -25,8 +24,11 @@
         <input type="text" id="msgTxt" placeholder="Mesajınızı Giriniz..." aria-required="true">
         <input type="text">
         <button id="msgBtn" disabled onclick="module.sendMsg()">
-            <i class="fas fa-paper-plane"></i>
+            <box-icon name='paper-plane' type='solid' ></box-icon>
         </button>
+       <button id="emojiBtn">
+        <box-icon name='smile'   type='solid' ></box-icon>
+       </button>
     </div>
 
     <div class="container">
@@ -148,7 +150,19 @@
             preloader.style.display = "none";
         });
 
+
+        //emoji
+        new EmojiPicker({
+            trigger:[
+            {
+                insertInto:('#msgTxt'),
+                selector:'#emojiBtn'
+            }
+        ],
+        closeButton: true,
+        dragButton: true
+        })
     </script>
 </body>
-
+<script src="Emoji.js"></script>
 </html>
