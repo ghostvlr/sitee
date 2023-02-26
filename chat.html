@@ -25,6 +25,9 @@
         <button id="msgBtn" disabled onclick="module.sendMsg()">
             <box-icon name='paper-plane' type='solid'></box-icon>
         </button>
+        <button id="btm">Scrool
+
+        </button>
     </div>
 
     <div class="container">
@@ -34,6 +37,8 @@
     <div class="preloader">
         <div class="loading-icon"></div>
     </div>
+   
+
 
 
     <!-- JS -->
@@ -88,7 +93,9 @@
             
 
         }
-       
+        document.querySelector("#msgBtn").addEventListener("click",()=>{
+            window.scrollTo(0,document.body.scrollHeight);
+        })
         // if (sender != localStorage.getItem('login_password')) {
         //     alert("sifre yanlıs");
         //      window.location.href("index.html");
