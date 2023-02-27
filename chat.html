@@ -24,10 +24,8 @@
 
         <button id="msgBtn" disabled onclick="module.sendMsg()">
             <box-icon name='paper-plane' type='solid'></box-icon>
-        </button>
-        <button id="btm">Scrool
-
-        </button>
+            </button>
+            
     </div>
 
     <div class="container">
@@ -85,6 +83,9 @@
 
         const email = localStorage.getItem('email');
         const password = localStorage.getItem('login_password');
+        var messagesDiv = document.getElementById("messages");
+  messagesDiv.scrollTop = messagesDiv.scrollTop;
+
        
 
         if (email) {
@@ -101,7 +102,7 @@
         //      window.location.href("index.html");
 
         // }
-        
+      
 
 
         //sender null veya boş ise alert verir texbox'ı disabled yapar ve sayfayı kapatır.
@@ -124,7 +125,7 @@
                 msg: msg,
                 sender: sender,
                 time: timestamp
-            })
+            });
 
             msgTxt.value = ""; //Mesaj Değeri
 
@@ -147,6 +148,7 @@
                 messages.innerHTML += "<div class=outer id=" + data.key + "><div id=inner class=notMe>" + data.val().sender + " : " + data.val().msg + "</div></div>";
             }
         })
+        
 
         // Mesaj silme
         module.dltMsg = function dltMsg(key) {
@@ -175,10 +177,12 @@
             preloader.style.display = "none";
         });
 
-
+        
         //emoji
 
-    </script>
+        
+
+</script>
 </body>
 
 </html>
