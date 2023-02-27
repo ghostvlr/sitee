@@ -81,16 +81,7 @@ i{
   border:none;
   background-color: transparent;
 }
-#emojiBtn{
-  position: absolute;
-  right: 50px;
-  top: 0;
-  width: 100px;
-  height: 100%;
-  
-  border: none;
-  background-color: transparent;
-}
+
 
 
 
@@ -113,6 +104,7 @@ i{
     margin-top: 10px;
     display: flex;
     word-wrap: break-word;
+    
 }
 
 #inner {
@@ -120,6 +112,7 @@ i{
     box-sizing: border-box;
     border-radius: 10px;
     word-wrap: break-word;
+    
 }
 
 .me {
@@ -127,6 +120,7 @@ i{
     color: #fff;
     word-wrap: break-word;
     z-index: 1;
+    margin-bottom: 50px;
 }
 
 .notMe {
@@ -134,6 +128,8 @@ i{
     color: #fff;
     word-wrap: break-word;
     z-index: 1;
+    margin-bottom: 50px;
+    
 }
 
 /* preloader */
