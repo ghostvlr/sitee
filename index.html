@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" href="/css/forgot.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css	">
+	<link rel="shortcut icon" href="images/signup.png" type="image/x-icon">
+</head>
+<body>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form action="#">
+			<h1>Hesap Oluştur </h1>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>veya kayıt için e-postanızı kullanın</span>
+			<!-- <input type="text" placeholder="İsim" /> -->
+			<input type="email" id="email" name="email" placeholder="Email" />
+			<input type="password" id="password" name="password" placeholder="Şifre" />
+			<button type="button" id="register" name="register" >Kayıt Ol</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form class="login">
+			<h1>Giriş Yap</h1>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>veya hesabını kullan</span>
+			<input type="email" id="login_email" name="login_email" placeholder="Email" />
+			<input type="password" id="login_password"name="login_password" placeholder="Şifre" />
+			<a href="/şifremi unuttum.html">Parolanızı mı unuttunuz?</a>
+			<button type="button" id="login" name="login_password" >Giriş Yap</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Tekrar Hoşgeldiniz!</h1>
+				<p>Bizimle bağlantıda kalmak için lütfen kişisel bilgilerinizle giriş yapın</p>
+				<button class="ghost" id="signIn">Giriş Yap</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Merhaba, Dostum!</h1>
+				<p>Kişisel bilgilerinizi girin ve bizimle eğlenceye başlayın!
+				</p>
+				<button class="ghost" id="signUp">Kayıt Ol</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+	
+</footer>
+<script type="module">
+	// Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+	// TODO: Add SDKs for Firebase products that you want to use
+	// https://firebase.google.com/docs/web/setup#available-libraries
+
+	// Your web app's Firebase configuration
+	// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	const firebaseConfig = {
+		  apiKey: "AIzaSyCpnsiRtyvChGxPQ_IzjO6qHazrT2zkNuQ",
+		  authDomain: "chat-6af43.firebaseapp.com",
+		  databaseURL: "https://chat-6af43-default-rtdb.firebaseio.com",
+		  projectId: "chat-6af43",
+		  storageBucket: "chat-6af43.appspot.com",
+		  messagingSenderId: "381364988848",
+		  appId: "1:381364988848:web:40128e3382a89300010475"
+	  };
+
+	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const analytics = getAnalytics(app);
+	const auth = getAuth();
+	console.log(app);
+	
+
+	//----- New Registration code start	  
+	document.getElementById("register").addEventListener("click", function() {
+	
+		var email =  document.getElementById("email").value;
+		var password = document.getElementById("password").value;		
+		
+		//For new registration
+		createUserWithEmailAndPassword(auth,email, password)
+		.then((userCredential) => {
+		  // Signed in 
+		  const user = userCredential.user;
+		  alert("Kayıt Başarılı");
+		  // ...
+		})
+		.catch((error) => {
+		  const errorCode = error.code;
+		  const errorMessage = error.message;
+		  // ..
+		  console.log(errorMessage);
+		  alert(error);
+		});		  		  
+	});
+	//----- End
+
+	//----- Login code start	  
+	document.getElementById("login").addEventListener("click", function() {
+		var email =  document.getElementById("login_email").value;
+		var password = document.getElementById("login_password").value;
+	
+		
+
+		signInWithEmailAndPassword(auth,email, password)
+		.then((userCredential) => {
+		  // Signed in 
+		  const user = userCredential.user;
+		  alert("Giriş Başarılı Yönlendiriliyor");
+		  window.location.href="/chat.html";
+		  localStorage.setItem('login_password',password);
+		  localStorage.setItem('email', email);
+
+		  // document.getElementById('logout').style.display = 'block';
+		  // ...
+		})
+		.catch((error) => {
+		  const errorCode = error.code;
+		  const errorMessage = error.message;
+		  console.log(errorMessage);
+		  alert(errorMessage);
+		});		  		  
+	});
+	//----- End
+
+	//----- Logout code start	  
+	document.getElementById("logout").addEventListener("click", function() {
+		signOut(auth).then(() => {
+			// Sign-out successful.
+			console.log('Sign-out successful.');
+			alert('Sign-out successful.');
+			document.getElementById('logout').style.display = 'none';
+		  }).catch((error) => {
+			// An error happened.
+			console.log('An error happened.');
+		  });		  		  
+	});
+</script>
+<script>
+	    const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+
+signUpButton.addEventListener('click', () => {
+	container.classList.add("right-panel-active");
+});
+
+signInButton.addEventListener('click', () => {
+	container.classList.remove("right-panel-active");
+});
+</script>
+</body>
+</html>

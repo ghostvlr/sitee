@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Chat</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/images/icon.ico" type="image/x-icon">
+
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+</head>
+<html>
+
+<body>
+
+
+    <div id="messages"></div>
+
+    <div id="sendMsg">
+        <input type="text" id="msgTxt" placeholder="Mesajınızı Giriniz..." aria-required="true">
+
+        <button id="msgBtn" disabled onclick="module.sendMsg()">
+            <box-icon name='paper-plane' type='solid'></box-icon>
+            </button>
+            
+    </div>
+
+    <div class="container">
+
+    </div>
+
+    <div class="preloader">
+        <div class="loading-icon"></div>
+    </div>
+   
+
+
+
+    <!-- JS -->
+    <script>
+        module = {};
+    </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, ref, set, remove, onChildAdded, onChildRemoved } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpnsiRtyvChGxPQ_IzjO6qHazrT2zkNuQ",
+            authDomain: "chat-6af43.firebaseapp.com",
+            databaseURL: "https://chat-6af43-default-rtdb.firebaseio.com",
+            projectId: "chat-6af43",
+            storageBucket: "chat-6af43.appspot.com",
+            messagingSenderId: "381364988848",
+            appId: "1:381364988848:web:40128e3382a89300010475"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+
+
+        var msgTxt = document.getElementById('msgTxt');
+        // var sender;
+        // if (localStorage.getItem('sender')) {
+        //     sender = sessionStorage.getItem('sender');
+
+        // } else {
+        //     sender = prompt('Lütfen İsminizi Giriniz');
+        //     sessionStorage.setItem('sender', sender);
+        // }
+
+        /* while döngüsü ile oturum bug'a giriyor 
+         while (sender == null || sender == "") {
+
+          alert("Kullanıcı Adı Girmediğinizden Dolayı Oturumunuz Sonlandırıldı.");
+
+         }*/
+
+
+        const email = localStorage.getItem('email');
+        const password = localStorage.getItem('login_password');
+        var messagesDiv = document.getElementById("messages");
+  messagesDiv.scrollTop = messagesDiv.scrollTop;
+
+       
+
+        if (email) {
+            var sender=email;
+        
+            
+
+        }
+        document.querySelector("#msgBtn").addEventListener("click",()=>{
+            window.scrollTo(0,document.body.scrollHeight);
+        })
+        // if (sender != localStorage.getItem('login_password')) {
+        //     alert("sifre yanlıs");
+        //      window.location.href("index.html");
+
+        // }
+      
+
+
+        //sender null veya boş ise alert verir texbox'ı disabled yapar ve sayfayı kapatır.
+        // if (sender == null || sender == '') {
+        //     alert("Şifrenizi girmeyi unuttunuz");
+        //     window.location.href("index.html");
+            
+        // }
+
+
+
+
+
+
+        // Mesaj gönderme
+        module.sendMsg = function sendMsg() {
+            var msg = msgTxt.value;
+            var timestamp = new Date().getTime();
+            set(ref(db, "messages/" + timestamp), {
+                msg: msg,
+                sender: sender,
+                time: timestamp
+            }); 
+
+            msgTxt.value = ""; //Mesaj Değeri
+
+        }
+        //mesaj denetim
+        msgTxt.addEventListener('keyup', () => {
+            if (msgTxt.value.length > 0) msgBtn.disabled = false
+            else msgBtn.disabled = true;
+
+        });
+
+
+
+
+        onChildAdded(ref(db, "messages/"), (data) => {
+            if (data.val().sender == sender) {
+                messages.innerHTML += "<div style=justify-content:end class=outer id=" + data.key + "><div id=inner class=me>Ben : " + data.val().msg + "<button id=dltMsg  onclick=module.dltMsg(" + data.key + ")>Sil </button></div></div>";
+
+            } else {
+                messages.innerHTML += "<div class=outer id=" + data.key + "><div id=inner class=notMe>" + data.val().sender + " : " + data.val().msg + "</div></div>";
+            }
+        })
+        
+
+        // Mesaj silme
+        module.dltMsg = function dltMsg(key) {
+            remove(ref(db, "messages/" + key));
+        }
+
+        // Mesaj Silindiğinde
+        onChildRemoved(ref(db, "messages"), (data) => {
+            var msgBox = document.getElementById(data.key);
+            messages.removeChild(msgBox);
+        })
+
+        //Enter ile gönderme
+        let btn = document.getElementById("msgBtn");
+
+        msgTxt.addEventListener("keyup", e => {
+            e.preventDefault();
+            if (e.keyCode === 13) {
+
+                btn.click();
+            }
+        });
+
+        window.addEventListener("load", function () {
+            const preloader = document.querySelector(".preloader");
+            preloader.style.display = "none";
+        });
+
+        
+        //emoji
+
+        
+
+</script>
+</body>
+
+</html>
