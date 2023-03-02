@@ -40,7 +40,6 @@ html {
 
 #msgTxt {
     position: absolute;
-    opacity: 0.75;
     left: 0;
     top: 0;
     width: calc(100%);
@@ -120,7 +119,9 @@ i{
     color: #fff;
     word-wrap: break-word;
     z-index: 1;
-    margin-bottom: 50px;
+    position: relative;
+    bottom: 50px;
+
 }
 
 .notMe {
@@ -128,8 +129,8 @@ i{
     color: #fff;
     word-wrap: break-word;
     z-index: 1;
-    margin-bottom: 50px;
-    
+    position: relative;
+    bottom: 50px;
 }
 
 /* preloader */
