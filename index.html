@@ -123,7 +123,6 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 		.then((userCredential) => {
 		  // Signed in 
 		  const user = userCredential.user;
-		  alert("Giriş Başarılı Yönlendiriliyor");
 		  window.location.href="/chat.html";
 		  localStorage.setItem('login_password',password);
 		  localStorage.setItem('email', email);

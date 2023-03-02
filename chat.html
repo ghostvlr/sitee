@@ -64,29 +64,10 @@
 
 
         var msgTxt = document.getElementById('msgTxt');
-        // var sender;
-        // if (localStorage.getItem('sender')) {
-        //     sender = sessionStorage.getItem('sender');
-
-        // } else {
-        //     sender = prompt('Lütfen İsminizi Giriniz');
-        //     sessionStorage.setItem('sender', sender);
-        // }
-
-        /* while döngüsü ile oturum bug'a giriyor 
-         while (sender == null || sender == "") {
-
-          alert("Kullanıcı Adı Girmediğinizden Dolayı Oturumunuz Sonlandırıldı.");
-
-         }*/
-
-
+   
         const email = localStorage.getItem('email');
         const password = localStorage.getItem('login_password');
-        var messagesDiv = document.getElementById("messages");
-  messagesDiv.scrollTop = messagesDiv.scrollTop;
 
-       
 
         if (email) {
             var sender=email;
